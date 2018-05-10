@@ -15,8 +15,9 @@ public class FollowCamera : MonoBehaviour {
     // LateUpdate is called after Update each frame
     void LateUpdate()
     {
-        //transform.position = new Vector3(0,player.position.y + 5,-10);
-        transform.position = Vector3.Lerp(transform.position, new Vector3(0, player.position.y + 3, -10), Time.deltaTime);
+        //transform.position = new Vector3(0,player.position.y + 3,-10);
+        //transform.position = Vector3.Lerp(transform.position, new Vector3(0, player.position.y + 3, -10), Time.deltaTime*1000);
+        transform.position = new Vector3(transform.position.x,  player.position.y + 3, transform.position.z);
         transform.LookAt(player);
     }
 }

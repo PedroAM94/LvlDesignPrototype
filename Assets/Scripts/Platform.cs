@@ -6,11 +6,15 @@ public class Platform : MonoBehaviour {
 
     Vector2 initialMousePos;
     public bool selected = false;
-    public float speed = 7;
+    public float speed = 20;
+    bool moving;
+    Vector3 newPos, startPos;
+    float moveTime = 0;
 
     // Use this for initialization
     void Start () {
         transform.GetChild(0).GetComponent<ParticleSystem>().Stop(true);
+        newPos = startPos = Vector3.zero;
     }
 	
 	// Update is called once per frame
@@ -35,24 +39,37 @@ public class Platform : MonoBehaviour {
         //    initialMousePos = new Vector2(0, Input.mousePosition.y);
             
         //}
-        if(Input.GetKey("up") && selected)
+        if(Input.GetKeyDown("up") && selected)
         {
-            transform.position += new Vector3(0, 1, 0) * Time.deltaTime * speed;
-        }else if (Input.GetKey("down") && selected)
-        {
-            transform.position -= new Vector3(0, 1, 0) * Time.deltaTime * speed;
+            startPos = transform.position;
+            newPos = startPos + Vector3.up;
+            moving = true;
+            moveTime = 0;
         }
-        if (Input.GetKeyUp("up") || Input.GetKeyUp("down") && selected)
+        else if (Input.GetKeyDown("down") && selected)
         {
-            Debug.Log("Levantada");
-            Snap();
+            startPos = transform.position;
+            newPos = startPos - Vector3.up;
+            moving = true;
+            moveTime = 0;
+        }
+
+        if (moving)
+        {
+            moveTime += Time.deltaTime * speed;
+            transform.position = Vector3.Lerp(startPos, newPos, moveTime);
+            if(Vector3.Distance(transform.position, newPos) < 0.05f)
+            {
+                Snap();
+                moving = false;
+            }
         }
         //if (Input.GetMouseButtonUp(0))
         //{
         //    selected = false;
-            
+
         //}
-       
+
     }
 
     private void OnMouseOver()
