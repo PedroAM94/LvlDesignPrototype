@@ -8,6 +8,9 @@ public class Character : MonoBehaviour {
     public int direction = 1;
     public int facing = 0;
     public Transform init;
+    public bool godMode = false;
+    bool jumping = false;
+    Vector3 posToGo;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +20,16 @@ public class Character : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         //this.transform.position += transform.GetChild(0).right * Time.deltaTime * speed * direction;
-        this.transform.position = Vector3.Lerp(this.transform.position, this.transform.position + transform.GetChild(0).right * speed * direction, Time.deltaTime);
+        if (!jumping)
+        {
+            posToGo = this.transform.position + transform.GetChild(0).right * speed * direction;
+
+        }
+        else
+        {
+            transform.RotateAround(transform.position, transform.GetChild(0).forward, -5);
+        }
+        this.transform.position = Vector3.Lerp(this.transform.position, posToGo, Time.deltaTime);
         //this.GetComponent<Rigidbody>().velocity = transform.GetChild(0).right * speed * direction;
     }
 
@@ -34,7 +46,21 @@ public class Character : MonoBehaviour {
             // Mathf.Clamp(facing++, 0, 4);
             //transform.rotation = Quaternion.Euler(0, 0, facing * 90);
         }
+        if (collision.collider.tag == "Obstacle")
+        {
+            jumping = false;
+        }
     }
 
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "DownLevel")
+        {
+            //transform.GetComponent<Rigidbody>().AddForce(Vector3.up * 500, ForceMode.Acceleration);
+            jumping = true;
+            posToGo = col.gameObject.GetComponent<Jump>().targetPos.transform.position;
+        }
+       
+    }
 
 }

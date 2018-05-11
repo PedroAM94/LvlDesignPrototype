@@ -8,6 +8,7 @@ TagManager:
   - DirChanger
   - Corner
   - Teleport
+  - DownLevel
   layers:
   - Default
   - TransparentFX

@@ -16,11 +16,14 @@ public class CollisionDetection : MonoBehaviour {
     {
         if (other.tag == "Obstacle")
         {
-            Debug.Log("Death");
-            transform.parent.GetComponent<Character>().facing = 0;
-            transform.parent.rotation = Quaternion.Euler(0, 0, 0);
-            transform.parent.position = transform.parent.GetComponent<Character>().init.position;
-            transform.parent.GetComponent<Character>().speed = 3.5f;
+            if (!transform.parent.GetComponent<Character>().godMode)
+            {
+                Debug.Log("Death");
+                transform.parent.GetComponent<Character>().facing = 0;
+                transform.parent.rotation = Quaternion.Euler(0, 0, 0);
+                transform.parent.position = transform.parent.GetComponent<Character>().init.position;
+                transform.parent.GetComponent<Character>().speed = 3.5f;
+            }
         }
 
         if (other.tag == "DirChanger")
