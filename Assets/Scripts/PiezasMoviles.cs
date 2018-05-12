@@ -17,4 +17,15 @@ public class PiezasMoviles : MonoBehaviour {
         }
     }
 
+    public void Restart()
+    {
+        foreach (GameObject g in piezas)
+        {
+            g.transform.position = g.GetComponent<Platform>().original;
+            g.GetComponent<Platform>().selected = false;
+            g.GetComponent<Platform>().index = 0;
+            g.transform.GetChild(0).GetComponent<ParticleSystem>().Stop(true);
+        }
+    }
+
 }

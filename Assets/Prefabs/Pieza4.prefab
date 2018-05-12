@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 54325585332655052}
   m_Layer: 0
   m_Name: Pieza4
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1823244529084120}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -1.6517415, y: -23.088097, z: -37.705994}
+  m_LocalPosition: {x: -1.6517415, y: -22.0881, z: -37.705994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4634038581905406}
@@ -131,7 +131,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 122
+  m_Constraints: 126
   m_CollisionDetection: 2
 --- !u!64 &64663340985964718
 MeshCollider:
@@ -430,11 +430,17 @@ MonoBehaviour:
     areaError: 15
   asset_guid: 
   dontDestroyMeshOnDelete: 0
-  m_selectedFaces: 
+  m_selectedFaces: 00000000
   m_SelectedEdges:
-  - x: 9
-    y: 11
-  m_selectedTriangles: 090000000b000000
+  - x: 8
+    y: 9
+  - x: 2
+    y: 0
+  - x: 1
+    y: 3
+  - x: 3
+    y: 2
+  m_selectedTriangles: 080000000900000002000000010000000300000002000000
 --- !u!114 &114620117901017532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -447,7 +453,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selected: 0
-  speed: 3
+  maxUp: 5
+  maxDown: -5
+  index: 0
+  original: {x: 0, y: 0, z: 0}
 --- !u!114 &114732767479171964
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -18,17 +18,14 @@ public class Character : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void LateUpdate () {
         //this.transform.position += transform.GetChild(0).right * Time.deltaTime * speed * direction;
-        if (!jumping)
-        {
-            posToGo = this.transform.position + transform.GetChild(0).right * speed * direction;
-
-        }
-        else
+        if (jumping)
         {
             transform.RotateAround(transform.position, transform.GetChild(0).forward, -5);
+
         }
+        posToGo = this.transform.position + transform.GetChild(0).right * speed * direction;
         this.transform.position = Vector3.Lerp(this.transform.position, posToGo, Time.deltaTime);
         //this.GetComponent<Rigidbody>().velocity = transform.GetChild(0).right * speed * direction;
     }
@@ -37,7 +34,6 @@ public class Character : MonoBehaviour {
     {
         if (collision.collider.tag == "Corner")
         {
-            Debug.Log("MEEEEEEE");
             facing++;
             if (facing > 3) facing = 0;
             transform.rotation = Quaternion.Euler(0, facing * 90, 0);
@@ -58,7 +54,7 @@ public class Character : MonoBehaviour {
         {
             //transform.GetComponent<Rigidbody>().AddForce(Vector3.up * 500, ForceMode.Acceleration);
             jumping = true;
-            posToGo = col.gameObject.GetComponent<Jump>().targetPos.transform.position;
+            //posToGo = col.gameObject.GetComponent<Jump>().targetPos.transform.position;
         }
        
     }

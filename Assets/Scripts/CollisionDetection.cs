@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionDetection : MonoBehaviour {
-
-    public Transform init;
+    
+    public GameObject PiezasLevel;
 
     private void Update()
     {
@@ -22,7 +22,8 @@ public class CollisionDetection : MonoBehaviour {
                 transform.parent.GetComponent<Character>().facing = 0;
                 transform.parent.rotation = Quaternion.Euler(0, 0, 0);
                 transform.parent.position = transform.parent.GetComponent<Character>().init.position;
-                transform.parent.GetComponent<Character>().speed = 3.5f;
+                transform.parent.GetComponent<Character>().speed = 5f;
+                PiezasLevel.GetComponent<PiezasMoviles>().Restart();
             }
         }
 

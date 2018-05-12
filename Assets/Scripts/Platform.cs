@@ -6,15 +6,20 @@ public class Platform : MonoBehaviour {
 
     Vector2 initialMousePos;
     public bool selected = false;
-    public float speed = 20;
+    float speed = 5;
     bool moving;
     Vector3 newPos, startPos;
     float moveTime = 0;
+    public int maxUp = 1;
+    public int maxDown = -1;
+    public int index = 0;
+    public Vector3 original;
 
     // Use this for initialization
     void Start () {
         transform.GetChild(0).GetComponent<ParticleSystem>().Stop(true);
         newPos = startPos = Vector3.zero;
+        original = transform.position;
     }
 	
 	// Update is called once per frame
@@ -39,19 +44,21 @@ public class Platform : MonoBehaviour {
         //    initialMousePos = new Vector2(0, Input.mousePosition.y);
             
         //}
-        if(Input.GetKeyDown("up") && selected)
+        if(Input.GetKeyDown("up") && selected && index+1 <= maxUp)
         {
             startPos = transform.position;
             newPos = startPos + Vector3.up;
             moving = true;
             moveTime = 0;
+            index++;
         }
-        else if (Input.GetKeyDown("down") && selected)
+        else if (Input.GetKeyDown("down") && selected && index-1 >= maxDown)
         {
             startPos = transform.position;
             newPos = startPos - Vector3.up;
             moving = true;
             moveTime = 0;
+            index--;
         }
 
         if (moving)
@@ -77,7 +84,6 @@ public class Platform : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Pillado");
             //initialMousePos = new Vector2(0, Input.mousePosition.y);
             selected = true;
             transform.parent.GetComponent<PiezasMoviles>().Deselect(this.gameObject);
